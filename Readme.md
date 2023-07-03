@@ -4,11 +4,7 @@
 
 **Fraud Detection and Delivery Prediction**
 
-Daniele Fiorucci – <daniele.fiorucci@studenti.luiss.it>[ ](mailto:daniele.fiorucci@studenti.luiss.it)– matr. 761461
 
-Giacomo Rossi – <g.rossi1803@studenti.luiss.it>[ ](mailto:g.rossi1803@studenti.luiss.it)– matr. 763391
-
-Costanza Placanica – <costanza.placanica@studenti.luiss.it>[ ](mailto:costanza.placanica@studenti.luiss.it)– matr. 759641
 
 **1. Introduction**
 
