@@ -1,8 +1,6 @@
 ﻿<a name="br1"></a> 
 
-**Enhancing Supply Chain Resilience:**
-
-**Fraud Detection and Delivery Prediction**
+**Enhancing Supply Chain Resilience:** **Fraud Detection and Delivery Prediction**
 
 
 
@@ -10,21 +8,9 @@
 
 ***1.1 Roadmap***
 
-Artificial intelligence is well-suited for optimizing business problems, particularly in the field
+Artificial intelligence is well-suited for optimizing business problems, particularly in the field of supply chain management, where machine learning algorithms can detect fraudulent operations and predict delivery times. Our advanced models have been trained on a vast amount of relevant data and can analyze patterns and trends to provide valuable insights to supply chain professionals. By leveraging our machine learning capabilities, we want to optimize this process t improve performances and minimizing the losses.
 
-of supply chain management, where machine learning algorithms can detect fraudulent
-
-operations and predict delivery times. Our advanced models have been trained on a vast amount of
-
-relevant data and can analyze patterns and trends to provide valuable insights to supply chain
-
-professionals. By leveraging our machine learning capabilities, we want to optimize this process to
-
-improve performances and minimizing the losses.
-
-We started by cleaning the data we were given so that it would be in the right format for our models.
-
-The tasks we had to solve are the following:
+We started by cleaning the data we were given so that it would be in the right format for our models. The tasks we had to solve are the following:
 
 
 
@@ -34,47 +20,20 @@ The tasks we had to solve are the following:
 
 2\. Logistic Delay Detection: we had to predict a possible delay in the logistic.
 
-3\. Delivery Prediction: we had to accurately predict the shipping days of the packages for our
+3\. Delivery Prediction: we had to accurately predict the shipping days of the packages for our customers.
 
-customers.
+
 
 ***1.2 Exploratory Data Analysis***
 
-The data we were given has 180519 rows and 53 features. These are divided into 29 numeric variables
-
-and 24 categorical variables.
-
-We started cleaning the data by removing null values, since we had very few of them, and by
-
-removing Product Description and Order Zipcode, as they contained a high number of null values,
-
-together with Customer Password and Customer Email that, for privacy reasons, are filled with
-
-XXXXX.
-
-We proceeded by looking for any duplicated columns. The columns Benefit per order and Order
-
-Profit Per Order, Sales per customer and Order Item Total, Category Id and Product Category Id,
-
-Customer Id and Order Customer Id, Order Customer Id and Customer Id, Order Item Cardprod Id
-
-and Product Card Id, Order Item Product Price and Product Price were respectively duplicated.
-
-Therefore, we decided to remove one for each duplicate.
-
+The data we were given has 180519 rows and 53 features. These are divided into 29 numeric variables and 24 categorical variables.
+We started cleaning the data by removing null values, since we had very few of them, and by removing Product Description and Order Zipcode, as they contained a high number of null values, together with Customer Password and Customer Email that, for privacy reasons, are filled with XXXXX.
+We proceeded by looking for any duplicated columns. The columns Benefit per order and Order Profit Per Order, Sales per customer and Order Item Total, Category Id and Product Category Id, Customer Id and Order Customer Id, Order Customer Id and Customer Id, Order Item Cardprod Id and Product Card Id, Order Item Product Price and Product Price were respectively duplicated.
+Therefore, we decided to remove one for each duplicate. 
 We removed all the columns containing ID.
-
 We are left with the following variables in our dataframe:
 
-Type, Days for shipping (real), Days for shipment (scheduled), Benefit per order, Sales per customer,
-
-Delivery Status, Late\_delivery\_risk, Customer City Customer Segment', 'Department Name',
-
-'Latitude', 'Longitude', 'Market', 'Order City', 'order date (DateOrders)', 'Order Item Discount', 'Order
-
-Item Discount Rate', 'Order Item Product Price', 'Order Item Profit Ratio', 'Order Item Quantity',
-
-'Sales', 'Order Status', 'Product Price', 'Product Status', 'shipping date (DateOrders)', 'Shipping Mode'.
+Type, Days for shipping (real), Days for shipment (scheduled), Benefit per order, Sales per customer, Delivery Status, Late\_delivery\_risk, Customer City Customer Segment', 'Department Name', 'Latitude', 'Longitude', 'Market', 'Order City', 'order date (DateOrders)', 'Order Item Discount', 'Order Item Discount Rate', 'Order Item Product Price', 'Order Item Profit Ratio', 'Order Item Quantity', 'Sales', 'Order Status', 'Product Price', 'Product Status', 'shipping date (DateOrders)', 'Shipping Mode'.
 
 
 
@@ -84,45 +43,17 @@ Item Discount Rate', 'Order Item Product Price', 'Order Item Profit Ratio', 'Ord
 
 ***2.1 Fraud Detection***
 
-Moving to the fraud detection task, the first thing we had to do was to create our target variable.
-
-To do so we used the Order Status variable we had in our data frame.
-
-We decided on three classes: Regular, Suspected and Fraud. All those packets that were classified as
-
-'COMPLETE', 'PENDING', 'PENDING\_PAYMENT' and 'PROCESSING' were grouped into
-
-‘Regular’. Those classified as 'CLOSED', 'CANCELED', 'ON\_HOLD' and ‘PAYMENT\_REVIEW'
-
-were grouped into ‘Suspected’; those which were classified as 'SUSPECTED\_FRAUD' we
-
-considered them as ‘Fraud’. Altogether, the resulting categories were Regular, Suspected and Fraud,
-
-with a distribution of 141452 Regular (78.4%), 35005 Suspected (19.4%) and 4062 Fraud (2.3%).
+Moving to the fraud detection task, the first thing we had to do was to create our target variable. To do so we used the Order Status variable we had in our data frame. We decided on three classes: Regular, Suspected and Fraud. All those packets that were classified as 'COMPLETE', 'PENDING', 'PENDING\_PAYMENT' and 'PROCESSING' were grouped into ‘Regular’. Those classified as 'CLOSED', 'CANCELED', 'ON\_HOLD' and ‘PAYMENT\_REVIEW' were grouped into ‘Suspected’; those which were classified as 'SUSPECTED\_FRAUD' we considered them as ‘Fraud’. Altogether, the resulting categories were Regular, Suspected and Fraud, with a distribution of 141452 Regular (78.4%), 35005 Suspected (19.4%) and 4062 Fraud (2.3%).
 
 
 
 <a name="br4"></a> 
 
-We then dropped the Order Status variable and moved to the encoding, as we had to transform the
-
-categorical variables to numerical.
-
-Before doing this, we also needed to transform the Days for shipping (real), Days for shipment
-
-(scheduled) from DateTime objects to numbers. To achieve this, we used the timestamp technique,
-
-which returns the time elapsed from the epoch time which is set to 00:00:00 UTC for 1 January 1970.
-
+We then dropped the Order Status variable and moved to the encoding, as we had to transform the categorical variables to numerical.
+Before doing this, we also needed to transform the Days for shipping (real), Days for shipment (scheduled) from DateTime objects to numbers. To achieve this, we used the timestamp technique, which returns the time elapsed from the epoch time which is set to 00:00:00 UTC for 1 January 1970.
 After converting the dates, we can continue with the encoding.
-
-The variables we had to encode were Shipping Mode, Delivery Status, Order City, Type, Customer
-
-Segment, department Name and Market.
-
-For the first two we used a label encoder, which assigns a number to each category. Since this will
-
-apply a hierarchy, we used a custom order.
+The variables we had to encode were Shipping Mode, Delivery Status, Order City, Type, Customer Segment, department Name and Market.
+For the first two we used a label encoder, which assigns a number to each category. Since this will apply a hierarchy, we used a custom order.
 
 ·
 
@@ -917,26 +848,12 @@ Here we are providing a short guide on how to run the code in a more fluent way.
 **01\_EDA.ipynb:**
 
 To load the file (SupplyChainDataset.csv), it must be in the same directory of the notebook.
-
-If running it on Google Colab, you can either load the file locally and insert the local path in the
-
-read\_csv or load it into the Google Drive connected to Google Colab and inserting the path instead.
-
-Running the notebook, a dataset called SupplyChainDataset\_eda containing the preprocessing steps
-
-will be generated either in the folder. If using Colab, remember to specify the path in the to\_csv
-
-function.
+If running it on Google Colab, you can either load the file locally and insert the local path in the read\_csv or load it into the Google Drive connected to Google Colab and inserting the path instead.
+Running the notebook, a dataset called SupplyChainDataset\_eda containing the preprocessing steps will be generated either in the folder. If using Colab, remember to specify the path in the to\_csv function.
 
 **02\_Prediction.ipynb**
 
-Since the requirement for this task in terms of encodings were slightly different with respect of other
-
-tasks, we imported the original dataset (SupplyChainDataset.csv) and performed the encoding. To
-
-run the notebook, you must follow the steps above.
-
-A dataset called SupplyChainDataset\_prediction.csv will be generated.
+Since the requirement for this task in terms of encodings were slightly different with respect of other tasks, we imported the original dataset (SupplyChainDataset.csv) and performed the encoding. To run the notebook, you must follow the steps above. A dataset called SupplyChainDataset\_prediction.csv will be generated.
 
 **03\_FraudDetection.ipynb**
 
@@ -945,7 +862,6 @@ To run this notebook, you have to import the dataset generated from the 01\_EDA.
 (SupplyChainDataset\_eda).
 
 Follow the steps above for a correct importing.
-
 A dataset called df\_fraud.csv will be generated.
 
 **04\_LogisticDelay.ipynb**
@@ -1022,7 +938,4 @@ All the plots are generated from the code. The plots for the results are generat
 
 05\_WebSite.ipynb.
 
-**Appendix B: Author Contribution**
-
-Each member of the group worked together to achieve the results of the project.
 
